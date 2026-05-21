@@ -199,19 +199,14 @@ if st.button("🔍 Predict Attrition"):
         )
 
         # Predict
-        prediction = model.predict(input_data_encoded)
+        probability = model.predict_proba(input_data_encoded)[0][1]
 
-        st.markdown("## Prediction Result")
+st.write(f"Attrition Probability: {probability*100:.2f}%")
 
-        # Result
-        if prediction[0] == 1:
+if probability > 0.35:
 
-            st.error("⚠️ Employee is likely to leave the company")
+    st.error("⚠️ Employee is likely to leave the company")
 
-        else:
+else:
 
-            st.success("✅ Employee is likely to stay in the company")
-
-    except Exception as e:
-
-        st.error(e)
+    st.success("✅ Employee is likely to stay in the company")
