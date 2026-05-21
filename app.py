@@ -216,6 +216,115 @@ if st.button("🔍 Predict Attrition"):
     except Exception as e:
 
         st.error(f"Error: {e}")
+        # Analytics Dashboard
+st.markdown("---")
+st.header("📊 HR Analytics Dashboard")
+
+try:
+
+    import matplotlib.pyplot as plt
+
+    # Create columns
+    col1, col2 = st.columns(2)
+
+    # Chart 1 - Salary Distribution
+    with col1:
+
+        st.subheader("💰 Monthly Income")
+
+        fig1, ax1 = plt.subplots()
+
+        ax1.bar(
+            ["Employee Salary"],
+            [MonthlyIncome]
+        )
+
+        ax1.set_ylabel("Income")
+
+        st.pyplot(fig1)
+
+    # Chart 2 - Satisfaction Scores
+    with col2:
+
+        st.subheader("😊 Satisfaction Levels")
+
+        labels = [
+            "Job",
+            "Environment",
+            "Relationship",
+            "WorkLife"
+        ]
+
+        values = [
+            JobSatisfaction,
+            EnvironmentSatisfaction,
+            RelationshipSatisfaction,
+            WorkLifeBalance
+        ]
+
+        fig2, ax2 = plt.subplots()
+
+        ax2.plot(labels, values, marker='o')
+
+        ax2.set_ylim(0, 5)
+
+        st.pyplot(fig2)
+
+    # Employee Metrics
+    st.markdown("---")
+    st.subheader("📌 Employee Metrics")
+
+    metric1, metric2, metric3, metric4 = st.columns(4)
+
+    metric1.metric(
+        "Monthly Income",
+        f"${MonthlyIncome}"
+    )
+
+    metric2.metric(
+        "Total Working Years",
+        TotalWorkingYears
+    )
+
+    metric3.metric(
+        "Years At Company",
+        YearsAtCompany
+    )
+
+    metric4.metric(
+        "Performance Rating",
+        PerformanceRating
+    )
+
+    # Attrition Risk Gauge
+    st.markdown("---")
+    st.subheader("⚠️ Attrition Risk Analysis")
+
+    risk_score = (
+        (5 - JobSatisfaction) +
+        (5 - WorkLifeBalance) +
+        (5 - EnvironmentSatisfaction)
+    ) * 10
+
+    st.progress(min(int(risk_score), 100))
+
+    st.write(f"Risk Score: {risk_score:.0f}%")
+
+    if risk_score > 70:
+
+        st.error("High Employee Attrition Risk")
+
+    elif risk_score > 40:
+
+        st.warning("Moderate Employee Attrition Risk")
+
+    else:
+
+        st.success("Low Employee Attrition Risk")
+
+except Exception as e:
+
+    st.error(e)
 # Feature Importance Graph
 st.markdown("---")
 st.subheader("📈 Feature Importance")
