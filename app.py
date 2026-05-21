@@ -178,26 +178,6 @@ input_data = pd.DataFrame({
     'YearsWithCurrManager': [YearsWithCurrManager]
 })
 
-# Prediction
-# Prediction
-st.markdown("---")
-
-if st.button("🔍 Predict Attrition"):
-
-    try:
-
-        # Load features
-        features = pickle.load(open("features.pkl", "rb"))
-
-        # Encode input
-        input_data_encoded = pd.get_dummies(input_data)
-
-        # Match columns
-        input_data_encoded = input_data_encoded.reindex(
-            columns=features,
-            fill_value=0
-        )
-
         # Prediction Section
 st.markdown("---")
 
