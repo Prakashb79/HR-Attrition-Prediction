@@ -199,14 +199,10 @@ if st.button("🔍 Predict Attrition"):
 
         st.markdown("## Prediction Result")
 
-        if prediction[0] == 0:
+        if prediction[0] == 1:
 
-            st.error("⚠️ Employee is likely to leave the company")
+    st.error("⚠️ Employee is likely to leave the company")
 
-        else:
+else:
 
-            st.success("✅ Employee is likely to stay in the company")
-
-    except Exception as e:
-
-        st.error(e)
+    st.success("✅ Employee is likely to stay in the company")
