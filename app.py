@@ -371,9 +371,3 @@ try:
 except Exception as e:
 
     st.warning("Feature importance not available for this model")
-    
-            )
-
-    except Exception as e:
-
-        st.error(e)
