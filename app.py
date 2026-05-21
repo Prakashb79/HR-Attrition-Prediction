@@ -198,19 +198,41 @@ if st.button("🔍 Predict Attrition"):
             fill_value=0
         )
 
-        # Predict
-        # Predict Probability
-probability = model.predict_proba(input_data_encoded)[0][1]
+        # Prediction
+st.markdown("---")
 
-st.markdown("## Prediction Result")
+if st.button("🔍 Predict Attrition"):
 
-st.write(f"Attrition Probability: {probability*100:.2f}%")
+    try:
 
-# Result
-if probability > 0.35:
+        # Load features
+        features = pickle.load(open("features.pkl", "rb"))
 
-    st.error("⚠️ Employee is likely to leave the company")
+        # Encode categorical data
+        input_data_encoded = pd.get_dummies(input_data)
 
-else:
+        # Match training columns
+        input_data_encoded = input_data_encoded.reindex(
+            columns=features,
+            fill_value=0
+        )
 
-    st.success("✅ Employee is likely to stay in the company")
+        # Predict probability
+        probability = model.predict_proba(input_data_encoded)[0][1]
+
+        st.markdown("## Prediction Result")
+
+        st.write(f"Attrition Probability: {probability*100:.2f}%")
+
+        # Final Result
+        if probability > 0.35:
+
+            st.error("⚠️ Employee is likely to leave the company")
+
+        else:
+
+            st.success("✅ Employee is likely to stay in the company")
+
+    except Exception as e:
+
+        st.error(e)
