@@ -84,6 +84,7 @@ input_data = pd.DataFrame({
 })
 
 # Prediction
+# Prediction
 if st.button("Predict Attrition"):
 
     prediction = model.predict(input_data)
