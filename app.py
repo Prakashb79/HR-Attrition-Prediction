@@ -179,6 +179,7 @@ input_data = pd.DataFrame({
 })
 
 # Prediction
+# Prediction
 st.markdown("---")
 
 if st.button("🔍 Predict Attrition"):
@@ -197,11 +198,15 @@ if st.button("🔍 Predict Attrition"):
         prediction = model.predict(input_data_encoded)
 
         st.markdown("## Prediction Result")
-if prediction[0] == 0:
-    st.error("⚠️ Employee is likely to leave the company")
-else:
-    st.success("✅ Employee is likely to stay in the company")
-        
+
+        if prediction[0] == 0:
+
+            st.error("⚠️ Employee is likely to leave the company")
+
+        else:
+
+            st.success("✅ Employee is likely to stay in the company")
+
     except Exception as e:
 
         st.error(e)
