@@ -216,3 +216,49 @@ if st.button("🔍 Predict Attrition"):
     except Exception as e:
 
         st.error(f"Error: {e}")
+# Feature Importance Graph
+st.markdown("---")
+st.subheader("📈 Feature Importance")
+
+try:
+
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    # Get feature importance
+    importance = model.feature_importances_
+
+    # Feature names
+    feature_names = features
+
+    # Create dataframe
+    importance_df = pd.DataFrame({
+        'Feature': feature_names,
+        'Importance': importance
+    })
+
+    # Sort values
+    importance_df = importance_df.sort_values(
+        by='Importance',
+        ascending=False
+    ).head(10)
+
+    # Plot graph
+    fig, ax = plt.subplots(figsize=(10, 5))
+
+    ax.barh(
+        importance_df['Feature'],
+        importance_df['Importance']
+    )
+
+    ax.set_xlabel("Importance Score")
+    ax.set_ylabel("Features")
+    ax.set_title("Top 10 Important Features")
+
+    plt.gca().invert_yaxis()
+
+    st.pyplot(fig)
+
+except Exception as e:
+
+    st.warning("Feature importance not available for this model")
