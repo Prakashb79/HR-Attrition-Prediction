@@ -198,20 +198,20 @@ if st.button("🔍 Predict Attrition"):
             fill_value=0
         )
 
-        # Prediction
+        # Prediction Section
 st.markdown("---")
 
 if st.button("🔍 Predict Attrition"):
 
     try:
 
-        # Load features
+        # Load feature columns
         features = pickle.load(open("features.pkl", "rb"))
 
-        # Encode categorical data
+        # Encode categorical columns
         input_data_encoded = pd.get_dummies(input_data)
 
-        # Match training columns
+        # Align columns with training data
         input_data_encoded = input_data_encoded.reindex(
             columns=features,
             fill_value=0
@@ -222,7 +222,7 @@ if st.button("🔍 Predict Attrition"):
 
         st.markdown("## Prediction Result")
 
-        st.write(f"Attrition Probability: {probability*100:.2f}%")
+        st.write(f"Attrition Probability: {probability * 100:.2f}%")
 
         # Final Result
         if probability > 0.35:
@@ -235,4 +235,4 @@ if st.button("🔍 Predict Attrition"):
 
     except Exception as e:
 
-        st.error(e)
+        st.error(f"Error: {e}")
