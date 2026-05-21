@@ -199,7 +199,7 @@ if st.button("🔍 Predict Attrition"):
 
         st.markdown("## Prediction Result")
 
-        if prediction[0] == 1:
+    if prediction[0] == 1:
 
     st.error("⚠️ Employee is likely to leave the company")
 
