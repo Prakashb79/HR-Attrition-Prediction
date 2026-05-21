@@ -84,12 +84,28 @@ input_data = pd.DataFrame({
 })
 
 # Prediction
-# Prediction
+# Prediction Button
 if st.button("Predict Attrition"):
 
-    prediction = model.predict(input_data)
+    try:
 
-    if prediction[0] == 1:
-        st.error("Employee is likely to leave the company")
-    else:
-        st.success("Employee is likely to stay in the company")
+        # Load feature columns
+        features = pickle.load(open("features.pkl", "rb"))
+
+        # Convert categorical data
+        input_data_encoded = pd.get_dummies(input_data)
+
+        # Match training columns
+        input_data_encoded = input_data_encoded.reindex(columns=features, fill_value=0)
+
+        # Predict
+        prediction = model.predict(input_data_encoded)
+
+        # Result
+        if prediction[0] == 1:
+            st.error("Employee is likely to leave the company")
+        else:
+            st.success("Employee is likely to stay in the company")
+
+    except Exception as e:
+        st.error(e)
