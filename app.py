@@ -186,23 +186,32 @@ if st.button("🔍 Predict Attrition"):
 
     try:
 
+        # Load features
         features = pickle.load(open("features.pkl", "rb"))
 
+        # Encode input
         input_data_encoded = pd.get_dummies(input_data)
 
+        # Match columns
         input_data_encoded = input_data_encoded.reindex(
             columns=features,
             fill_value=0
         )
 
+        # Predict
         prediction = model.predict(input_data_encoded)
 
         st.markdown("## Prediction Result")
 
-    if prediction[0] == 1:
+        # Result
+        if prediction[0] == 1:
 
-    st.error("⚠️ Employee is likely to leave the company")
+            st.error("⚠️ Employee is likely to leave the company")
 
-else:
+        else:
 
-    st.success("✅ Employee is likely to stay in the company")
+            st.success("✅ Employee is likely to stay in the company")
+
+    except Exception as e:
+
+        st.error(e)
